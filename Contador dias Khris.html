@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuenta regresiva Khris</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+
+        h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .countdown {
+            font-size: 36px;
+            font-weight: bold;
+            background-color: #e0e0e0;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-container {
+            width: 300px;
+            height: 300px;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 1;
+            transition: opacity 1s linear;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Cuenta regresiva Khris</h1>
+    <div id="countdown" class="countdown"></div>
+    <div class="image-container">
+        <img id="countdown-image" src="Khristopher.png" alt="Desvaneciendo">
+    </div>
+
+    <script>
+        const targetDate = new Date("September 06, 2024 10:00:00").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            // Cálculo de días, horas, minutos y segundos restantes
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Actualiza el texto de la cuenta regresiva
+            document.getElementById("countdown").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+            // Cálculo de la opacidad proporcional al tiempo restante
+            const totalDuration = targetDate - new Date().getTime(); // Duración total desde ahora hasta la fecha objetivo
+            const opacity = distance / totalDuration;
+
+            // Actualiza la opacidad de la imagen
+            document.getElementById("countdown-image").style.opacity = opacity;
+
+            // Cuando el tiempo se cumple
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("countdown").innerHTML = "¡Tiempo cumplido!";
+                document.getElementById("countdown-image").style.opacity = 0;
+            }
+        }
+
+        // Ejecuta la función cada segundo
+        updateCountdown();
+        const x = setInterval(updateCountdown, 1000);
+    </script>
+
+</body>
+</html>
